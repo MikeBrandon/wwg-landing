@@ -3,7 +3,7 @@ import { FaTrophy } from "react-icons/fa6";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
-const AwardsCarousel = () => {
+const AwardsCarousel = ({ showAll = false }) => {
     const awards = [
         {
             title: "Youtube Content Creator of the Year",
@@ -78,21 +78,23 @@ const AwardsCarousel = () => {
     const totalPages = Math.ceil(awards.length / itemsPerPage);
 
     useEffect(() => {
-        const timer = setInterval(() => {
-            setCurrentPage((prev) => (prev + 1) % totalPages);
-        }, 5000); // Change slides every 5 seconds
+        if (!showAll) {
+            const timer = setInterval(() => {
+                setCurrentPage((prev) => (prev + 1) % totalPages);
+            }, 5000); // Change slides every 5 seconds
 
-        return () => clearInterval(timer);
-    }, [totalPages]);
+            return () => clearInterval(timer);
+        }
+    }, [totalPages, showAll]);
 
-    const visibleAwards = awards.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
+    const visibleAwards = showAll ? awards : awards.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
 
     return (
         <div className="w-full">
-            <div className="grid grid-cols-3 gap-8 transition-all duration-500 ease-in-out">
+            <div className={`grid ${showAll ? 'grid-cols-1 md:grid-cols-3 lg:grid-cols-3' : 'grid-cols-3'} gap-8 transition-all duration-500 ease-in-out`}>
                 {visibleAwards.map((award, index) => (
                     <div
-                        key={`${currentPage}-${index}`}
+                        key={showAll ? index : `${currentPage}-${index}`}
                         className="bg-primary/100 aspect-square border border-secondary overflow-hidden transform transition-all duration-500 ease-in-out flex"
                     >
                         <div className="relative h-full min-w-max">
@@ -114,25 +116,29 @@ const AwardsCarousel = () => {
                     </div>
                 ))}
             </div>
-            <div className="flex justify-center mt-4 gap-2">
-                {[...Array(totalPages)].map((_, i) => (
-                    <button
-                        key={i}
-                        className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                            i === currentPage ? 'bg-secondary' : 'bg-secondary/30'
-                        }`}
-                        onClick={() => setCurrentPage(i)}
-                    />
-                ))}
-            </div>
-            <div className="flex justify-center">
-                <Link
-                href="/awards"
-                className="inline-flex items-center bg-secondary text-white px-6 py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-all mt-4"
-                >
-                    View More
-                </Link>
-            </div>
+            {!showAll && (
+                <>
+                    <div className="flex justify-center mt-4 gap-2">
+                        {[...Array(totalPages)].map((_, i) => (
+                            <button
+                                key={i}
+                                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                                    i === currentPage ? 'bg-secondary' : 'bg-secondary/30'
+                                }`}
+                                onClick={() => setCurrentPage(i)}
+                            />
+                        ))}
+                    </div>
+                    <div className="flex justify-center">
+                        <Link
+                        href="/awards"
+                        className="inline-flex items-center bg-secondary text-white px-6 py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-all mt-4"
+                        >
+                            View More
+                        </Link>
+                    </div>
+                </>
+            )}
         </div>
     );
 }

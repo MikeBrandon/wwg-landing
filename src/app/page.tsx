@@ -1,28 +1,31 @@
 "use client";
 
 import Image from "next/image";
-import { FaDiscord, FaTrophy, FaNewspaper } from "react-icons/fa";
+import { FaDiscord, FaNewspaper } from "react-icons/fa";
 import NewsletterForm from "../components/NewsletterForm";
 import Link from "next/link";
 import AwardsCarousel from "@/components/AwardsCarousel";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
     <div className="min-h-screen text-white">
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center text-center px-4">
+      <section className="relative h-screen flex items-center justify-center text-center px-4 bg-white">
         <div className="absolute inset-0 z-0">
           <Image
             src="/6384643495f59d92f0a83b1d481b1f5f.jpg"
             alt="Gaming Community Hero"
             fill
-            className="object-cover opacity-[3%]"
+            className="object-cover opacity-[11%]"
             priority
             quality={100}
           />
-          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
         </div>
         <div className="relative z-10 max-w-4xl mx-auto">
+          <div className="image-container">
+            <Image src="/wwg_2.png" alt="Logo" className="w-[500px] mx-auto mb-12" width={3126} height={656} quality={50}/>
+          </div>
           <h1 className="text-6xl font-bold mb-6">
             <span className="text-secondary">Watu Wa Gaming</span>
           </h1>
@@ -35,9 +38,9 @@ export default function Home() {
           </p>
           <a
             href="https://discord.gg/xpjv99H"
-            className="inline-flex items-center bg-secondary text-background px-8 py-4 rounded-full text-lg font-semibold hover:bg-opacity-90 transition-all"
+            className="inline-flex items-center bg-secondary text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-opacity-90 transition-all"
           >
-            <FaDiscord className="mr-2 text-2xl" />
+            <FaDiscord className="mr-2 text-2xl text-white" />
             Join the Community
           </a>
         </div>
@@ -46,8 +49,11 @@ export default function Home() {
       {/* Awards Section */}
       <section className="py-20 px-4">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold mb-12 text-center text-primary">
-            <span className="text-secondary">Community</span> Awards
+          {/* <h2 className="text-4xl font-bold mb-12 text-center text-primary">
+            <span className="text-secondary">Creator</span> Awards
+          </h2> */}
+          <h2 className="image-container">
+            <Image src="/wwgca.png" alt="Awards" className="w-[30%] mx-auto mb-12" width={5112} height={2051} quality={10}/>
           </h2>
           <div className="">
             <AwardsCarousel />
@@ -102,28 +108,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* Newsletter Section */}
-      <section className="py-20 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <FaNewspaper className="text-primary text-4xl mx-auto mb-6" />
-          <h2 className="text-4xl font-bold mb-6">
-            Stay <span className="text-primary">Updated</span>
-          </h2>
-          <p className="text-xl mb-8 text-gray-300">
-            Subscribe to our newsletter for the latest gaming updates and
-            events!
-          </p>
-          <NewsletterForm />
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="py-8 border-t border-primary/20">
-        <div className="max-w-6xl mx-auto px-4 text-center text-gray-400">
-          <p>© 2023 Gaming Community. All rights reserved.</p>
-        </div>
-      </footer>
     </div>
   );
 }

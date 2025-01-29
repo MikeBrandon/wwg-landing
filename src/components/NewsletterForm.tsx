@@ -1,31 +1,24 @@
-import { useState } from 'react';
-
-export default function NewsletterForm() {
-  const [email, setEmail] = useState('');
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle newsletter signup
-    console.log('Newsletter signup:', email);
-    setEmail('');
-  };
-
+import { FaDiscord, FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
+import { FaMessage } from "react-icons/fa6";
+import Link from "next/link";
+export default function Socials() {
   return (
-    <form onSubmit={handleSubmit} className="max-w-md mx-auto flex gap-4">
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Enter your email"
-        className="flex-1 px-4 py-3 rounded-lg bg-background border border-primary/20 focus:border-primary outline-none"
-        required
-      />
-      <button
-        type="submit"
-        className="bg-primary text-background px-6 py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-all"
-      >
-        Subscribe
-      </button>
-    </form>
+    <div className="flex gap-8 items-center justify-center mb-6">
+      <Link href="https://discord.gg/xpjv99H" target="_blank" rel="noopener noreferrer">
+        <FaDiscord className="text-primary text-4xl hover:text-secondary transition-all duration-300 hover:scale-110 hover:cursor-pointer" />
+      </Link>
+      <Link href="https://instagram.com/watuwagaming" target="_blank" rel="noopener noreferrer">
+        <FaInstagram className="text-primary text-4xl hover:text-secondary transition-all duration-300 hover:scale-110 hover:cursor-pointer" />
+      </Link>
+      <Link href="https://tiktok.com/@watuwagaming" target="_blank" rel="noopener noreferrer">
+        <FaTiktok className="text-primary text-4xl hover:text-secondary transition-all duration-300 hover:scale-110 hover:cursor-pointer" />
+      </Link>
+      <Link href="https://youtube.com/@watuwagaming" target="_blank" rel="noopener noreferrer">
+        <FaYoutube className="text-primary text-4xl hover:text-secondary transition-all duration-300 hover:scale-110 hover:cursor-pointer" />
+      </Link>
+      <Link href="mailto:watuwagaming@gmail.com">
+        <FaMessage className="text-primary text-4xl hover:text-secondary transition-all duration-300 hover:scale-110 hover:cursor-pointer" />
+      </Link>
+    </div>
   );
 }
