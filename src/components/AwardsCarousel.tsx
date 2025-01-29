@@ -6,37 +6,7 @@ import Link from "next/link";
 const AwardsCarousel = ({ showAll = false }) => {
     const awards = [
         {
-            title: "Youtube Content Creator of the Year",
-            winnerImage: "/lulu.jpg", 
-            winnerUsername: "czyLulu",
-            yearWon: "2024",
-        },
-        {
-            title: "Twitch Content Creator of the Year",
-            winnerImage: "/someothergirl.jpg",
-            winnerUsername: "_someothergirl",
-            yearWon: "2024",
-        },
-        {
-            title: "TikTok Content Creator of the Year",
-            winnerImage: "/icebaby.jpg",
-            winnerUsername: "icebaby484",
-            yearWon: "2024",
-        },
-        {
-            title: "Best Technical Content Creator of the Year",
-            winnerImage: "/bloody.jpg",
-            winnerUsername: "BloodyActor",
-            yearWon: "2024",
-        },
-        {
-            title: "PC Content Creator of the Year",
-            winnerImage: "/cecily.jpg",
-            winnerUsername: "cecily960",
-            yearWon: "2024",
-        },
-        {
-            title: "Mobile Content Creator of the Year",
+            title: "Best Content Creator of the Year",
             winnerImage: "/ptk.jpg",
             winnerUsername: "PTKAfrica",
             yearWon: "2024",
@@ -54,7 +24,37 @@ const AwardsCarousel = ({ showAll = false }) => {
             yearWon: "2024",
         },
         {
-            title: "Best Content Creator of the Year",
+            title: "Esports Caster of the Year",
+            winnerImage: "/eugene.jpg",
+            winnerUsername: "Eugene Abuderby",
+            yearWon: "2024",
+        },
+        {
+            title: "Best Technical Content Creator of the Year",
+            winnerImage: "/bloody.jpg",
+            winnerUsername: "BloodyActor",
+            yearWon: "2024",
+        },
+        {
+            title: "TikTok Content Creator of the Year",
+            winnerImage: "/icebaby.jpg",
+            winnerUsername: "icebaby484",
+            yearWon: "2024",
+        },
+        {
+            title: "Twitch Content Creator of the Year",
+            winnerImage: "/someothergirl.jpg",
+            winnerUsername: "_someothergirl",
+            yearWon: "2024",
+        },
+        {
+            title: "Youtube Content Creator of the Year",
+            winnerImage: "/lulu.jpg", 
+            winnerUsername: "czyLulu",
+            yearWon: "2024",
+        },
+        {
+            title: "Mobile Content Creator of the Year",
             winnerImage: "/ptk.jpg",
             winnerUsername: "PTKAfrica",
             yearWon: "2024",
@@ -66,16 +66,31 @@ const AwardsCarousel = ({ showAll = false }) => {
             yearWon: "2024",
         },
         {
-            title: "Esports Caster of the Year",
-            winnerImage: "/eugene.jpg",
-            winnerUsername: "Eugene Abuderby",
+            title: "PC Content Creator of the Year",
+            winnerImage: "/cecily.jpg",
+            winnerUsername: "cecily960",
             yearWon: "2024",
         },
     ];
 
-    const itemsPerPage = 3;
     const [currentPage, setCurrentPage] = useState(0);
-    const totalPages = Math.ceil(awards.length / itemsPerPage);
+    const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 0);
+
+    const getItemsPerPage = () => {
+        if (windowWidth < 768) return 1; // Mobile
+        return 3; // Tablet and Desktop
+    };
+
+    const totalPages = Math.ceil(awards.length / getItemsPerPage());
+
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     useEffect(() => {
         if (!showAll) {
@@ -87,15 +102,20 @@ const AwardsCarousel = ({ showAll = false }) => {
         }
     }, [totalPages, showAll]);
 
-    const visibleAwards = showAll ? awards : awards.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
+    const visibleAwards = showAll 
+        ? awards 
+        : awards.slice(
+            currentPage * getItemsPerPage(), 
+            (currentPage + 1) * getItemsPerPage()
+        );
 
     return (
         <div className="w-full">
-            <div className={`grid ${showAll ? 'grid-cols-1 md:grid-cols-3 lg:grid-cols-3' : 'grid-cols-3'} gap-8 transition-all duration-500 ease-in-out`}>
+            <div className={`grid ${showAll ? 'grid-cols-1 md:grid-cols-3' : 'grid-cols-1 md:grid-cols-3'} gap-8 transition-all duration-500 ease-in-out`}>
                 {visibleAwards.map((award, index) => (
                     <div
                         key={showAll ? index : `${currentPage}-${index}`}
-                        className="bg-primary/100 aspect-square border border-secondary overflow-hidden transform transition-all duration-500 ease-in-out flex"
+                        className={`bg-primary/100 aspect-square border ${award.title === "Best Content Creator of the Year" ? 'border-yellow-400 shadow-lg shadow-yellow-400/50 animate-pulse' : 'border-secondary'} overflow-hidden transform transition-all duration-500 ease-in-out flex`}
                     >
                         <div className="relative h-full min-w-max">
                             <Image 
@@ -108,8 +128,8 @@ const AwardsCarousel = ({ showAll = false }) => {
                             <div className="absolute bottom-0 left-0 right-0 h-16" />
                         </div>
                         <div className="p-4">
-                            <FaTrophy className="text-white text-2xl mb-2" />
-                            <h3 className="text-xl font-semibold mb-1">{award.title}</h3>
+                            <FaTrophy className={`${award.title === "Best Content Creator of the Year" ? 'text-yellow-400 animate-bounce' : 'text-white'} text-2xl mb-2`} />
+                            <h3 className={`text-xl font-semibold mb-1 ${award.title === "Best Content Creator of the Year" ? 'text-yellow-400' : ''}`}>{award.title}</h3>
                             <p className="text-gray-300 text-sm">@{award.winnerUsername || "username"}</p>
                             <p className="text-gray-400 text-xs mt-1">{award.yearWon || "2023"}</p>
                         </div>
