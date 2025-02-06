@@ -67,17 +67,27 @@ export default function Home() {
           {blogPosts.map((post, index) => (
               <div
                 key={index}
-                className="bg-primary p-4 md:p-6 rounded-lg border border-background/20"
+                className="bg-primary p-4 md:p-6 rounded-lg border border-background/20 flex gap-4 h-full"
               >
-                <h3 className="text-lg md:text-xl font-semibold mb-2">{post.title}</h3>
-                <p className="text-background/80 text-xs md:text-sm mb-3 md:mb-4">{post.date}</p>
-                <p className="text-gray-300 text-sm md:text-base">{post.excerpt}</p>
-                <Link
-                  href="/blog"
-                  className="inline-block text-background mt-3 md:mt-4 hover:text-secondary/80 text-sm md:text-base"
-                >
-                  Read More →
-                </Link>
+                <div className="relative w-48 flex-shrink-0 rounded-lg overflow-hidden">
+                  <Image
+                    src={post.image || "/blog-placeholder.jpg"}
+                    alt={post.title}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="flex flex-col h-full">
+                  <h3 className="text-lg md:text-xl font-semibold mb-2">{post.title}</h3>
+                  <p className="text-background/80 text-xs md:text-sm mb-3 md:mb-4">{post.date}</p>
+                  <p className="text-gray-300 text-sm md:text-base">{post.excerpt}</p>
+                  <Link
+                    href="/blog"
+                    className="inline-block text-background mt-auto hover:text-secondary/80 text-sm md:text-base"
+                  >
+                    Read More →
+                  </Link>
+                </div>
               </div>
             ))}
           </div>
