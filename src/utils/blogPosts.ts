@@ -1,11 +1,12 @@
 const blogPosts = [
   {
-    id: 1,
-    title: "New Tournament Series",
-    date: "October 1, 2023",
-    excerpt: "Join our upcoming tournament series with amazing prizes!",
+    id: 1, 
+    image: "/gamejam.jpg",
+    title: "GAMEJAM ",
+    date: "FEB 8, 2025",
+    excerpt: "Gaming Community Experience to Test Locally developed games & concepts",
     content:
-      "Get ready for an exciting tournament series that will test your skills and teamwork. Compete against the best teams in our community for amazing prizes including gaming gear, exclusive merchandise, and more!",
+      "Gaming Community Experience to test locally developed games and concepts",
   },
 ];
 
