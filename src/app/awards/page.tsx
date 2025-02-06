@@ -2,13 +2,30 @@
 
 import AwardsCarousel from "@/components/AwardsCarousel";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 const AwardsPage = () => {
   return (
-    <section className="py-12 md:py-20 px-4">
+    <motion.section
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+      className="py-12 md:py-20 px-4"
+    >
       <div className="max-w-6xl mx-auto">
-        <div className="flex flex-col md:flex-row items-center gap-8 mb-12 w-full mt-4 md:mt-8">
-          <div className="youtube-video-container w-full md:w-1/2">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="flex flex-col md:flex-row items-center gap-8 mb-12 w-full mt-4 md:mt-8"
+        >
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="youtube-video-container w-full md:w-1/2"
+          >
             <iframe
               src="https://www.youtube.com/embed/Nu0OsbCxvqE"
               title="YouTube video player"
@@ -17,8 +34,13 @@ const AwardsPage = () => {
               referrerPolicy="strict-origin-when-cross-origin"
               allowFullScreen
             ></iframe>
-          </div>
-          <div className="youtube-video-description w-full md:w-1/2">
+          </motion.div>
+          <motion.div 
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="youtube-video-description w-full md:w-1/2"
+          >
             <h2 className="image-container">
               <Image
                 src="/wwgca.png"
@@ -36,17 +58,22 @@ const AwardsPage = () => {
               showcase and uplift local gaming creators who are shaping the
               future of gaming content in Kenya.
             </p>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
-        <div className="text-white">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+          className="text-white"
+        >
           <h3 className="text-xl md:text-2xl font-bold mb-4 text-center md:text-left">
             <span className="text-secondary">2024</span>
           </h3>
           <AwardsCarousel showAll={true} />
-        </div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 
