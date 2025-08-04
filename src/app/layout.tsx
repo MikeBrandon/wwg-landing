@@ -3,7 +3,7 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
-import { AnimatePresence } from 'framer-motion'
+import ClientWrapper from "@/components/ClientWrapper";
 
 const font = Montserrat({
   subsets: ["latin"],
@@ -26,9 +26,9 @@ export default function RootLayout({
         className={`${font.variable} antialiased bg-background`}
       >
         <NavBar />
-        <AnimatePresence mode="wait">
+        <ClientWrapper>
           {children}
-        </AnimatePresence>
+        </ClientWrapper>
         <Footer />
       </body>
     </html>
