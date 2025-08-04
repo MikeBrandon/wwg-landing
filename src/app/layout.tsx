@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${font.variable} antialiased bg-background`}
+        className={`${font.variable} font-sans antialiased`}
       >
         <NavBar />
         <ClientWrapper>

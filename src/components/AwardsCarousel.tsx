@@ -111,50 +111,109 @@ const AwardsCarousel = ({ showAll = false }) => {
 
     return (
         <div className="w-full">
-            <div className={`grid ${showAll ? 'grid-cols-1 md:grid-cols-3' : 'grid-cols-1 md:grid-cols-3'} gap-8 transition-all duration-500 ease-in-out`}>
-                {visibleAwards.map((award, index) => (
-                    <div
-                        key={showAll ? index : `${currentPage}-${index}`}
-                        className={`bg-primary/100 aspect-square border ${award.title === "Best Content Creator of the Year" ? 'border-yellow-400 shadow-lg shadow-yellow-400/50 animate-pulse' : 'border-secondary'} overflow-hidden transform transition-all duration-500 ease-in-out flex`}
-                    >
-                        <div className="relative h-full min-w-max">
-                            <Image 
-                                src={award.winnerImage || "/placeholder-winner.jpg"}
-                                alt={`${award.title} Winner`}
-                                className="object-cover w-full h-full transition-opacity duration-500 ease-in-out"
-                                width={331}
-                                height={586}
-                            />
-                            <div className="absolute bottom-0 left-0 right-0 h-16" />
+            <div
+                className={`grid ${
+                    showAll
+                        ? "grid-cols-1 md:grid-cols-3"
+                        : "grid-cols-1 md:grid-cols-3"
+                } gap-8 transition-all duration-500 ease-in-out`}
+            >
+                {visibleAwards.map((award, index) => {
+                    const isMain = award.title === "Best Content Creator of the Year";
+                    return (
+                        <div
+                            key={showAll ? index : `${currentPage}-${index}`}
+                            className={`
+                                relative
+                                aspect-[3/4]
+                                overflow-hidden
+                                shadow-card
+                                border
+                                flex flex-col
+                                group
+                                transition-all duration-500 ease-in-out
+                                ${isMain
+                                    ? "border-yellow-400 shadow-yellow-400/40 bg-gradient-to-br from-yellow-100/30 via-yellow-50/10 to-background/60 animate-glow"
+                                    : "border-secondary/60 bg-surface/80 hover:shadow-lg hover:shadow-secondary/20"
+                                }
+                            `}
+                        >
+                            <div className="relative w-full h-full">
+                                <Image
+                                    src={award.winnerImage || "/placeholder-winner.jpg"}
+                                    alt={`${award.title} Winner`}
+                                    className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
+                                    width={331}
+                                    height={586}
+                                    priority={isMain}
+                                />
+                                <div
+                                    className={`
+                                        absolute inset-0
+                                        bg-gradient-to-t
+                                        from-black/80 via-black/20 to-transparent
+                                        pointer-events-none
+                                    `}
+                                />
+                                <div className="absolute top-4 left-4">
+                                    <FaTrophy
+                                        className={`
+                                            text-3xl drop-shadow-lg
+                                            ${isMain
+                                                ? "text-yellow-400 animate-bounce"
+                                                : "text-secondary group-hover:text-yellow-300 transition-colors"
+                                            }
+                                        `}
+                                    />
+                                </div>
+                                <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
+                                    <h3
+                                        className={`
+                                            text-lg md:text-xl font-bold mb-2
+                                            ${isMain
+                                                ? "text-yellow-400 drop-shadow"
+                                                : "text-text-primary group-hover:text-secondary transition-colors"
+                                            }
+                                        `}
+                                    >
+                                        {award.title}
+                                    </h3>
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-sm md:text-base font-medium text-secondary-400 bg-secondary/10 px-2 py-0.5 rounded">
+                                            @{award.winnerUsername || "username"}
+                                        </span>
+                                        <span className="text-xs text-text-muted ml-auto">
+                                            {award.yearWon || "2023"}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            {isMain && (
+                                <div className="pointer-events-none absolute inset-0 border-4 border-yellow-300 animate-pulse" />
+                            )}
                         </div>
-                        <div className="p-4">
-                            <FaTrophy className={`${award.title === "Best Content Creator of the Year" ? 'text-yellow-400 animate-bounce' : 'text-white'} text-2xl mb-2`} />
-                            <h3 className={`text-xl font-semibold mb-1 ${award.title === "Best Content Creator of the Year" ? 'text-yellow-400' : ''}`}>{award.title}</h3>
-                            <p className="text-gray-300 text-sm">@{award.winnerUsername || "username"}</p>
-                            <p className="text-gray-400 text-xs mt-1">{award.yearWon || "2023"}</p>
-                        </div>
-                    </div>
-                ))}
+                    );
+                })}
             </div>
             {!showAll && (
                 <>
-                    <div className="flex justify-center mt-4 gap-2">
+                    <div className="flex justify-center mt-8 gap-3">
                         {[...Array(totalPages)].map((_, i) => (
                             <button
                                 key={i}
-                                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                                    i === currentPage ? 'bg-secondary' : 'bg-secondary/30'
+                                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                                    i === currentPage ? 'bg-secondary scale-125' : 'bg-secondary/30 hover:bg-secondary/50'
                                 }`}
                                 onClick={() => setCurrentPage(i)}
                             />
                         ))}
                     </div>
-                    <div className="flex justify-center">
+                    <div className="flex justify-center mt-8">
                         <Link
-                        href="/awards"
-                        className="inline-flex items-center bg-secondary text-white px-6 py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-all mt-4"
+                            href="/awards"
+                            className="inline-flex items-center px-8 py-3 rounded-xl font-semibold bg-secondary hover:bg-secondary/80 hover:scale-105 transition-all duration-300 text-text-primary"
                         >
-                            View More
+                            View All Awards
                         </Link>
                     </div>
                 </>
