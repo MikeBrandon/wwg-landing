@@ -68,7 +68,7 @@ const AwardsPage = () => {
               variants={itemVariants}
               className="text-lg md:text-xl lg:text-2xl text-primary max-w-4xl mx-auto leading-relaxed"
             >
-              A prestigious celebration dedicated to recognizing and promoting Kenya's talented gaming content creators
+              A prestigious celebration dedicated to recognizing and promoting Kenya&apos;s talented gaming content creators
             </motion.p>
           </motion.div>
 
