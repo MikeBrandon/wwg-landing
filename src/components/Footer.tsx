@@ -2,7 +2,6 @@
 
 import { FaNewspaper, FaDiscord, FaTwitter, FaYoutube, FaInstagram } from "react-icons/fa";
 import { motion } from "framer-motion";
-import NewsletterForm from "./NewsletterForm";
 
 const Footer = () => {
   const socialLinks = [
