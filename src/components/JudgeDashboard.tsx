@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { createClient } from '@/utils/supabase/client'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
@@ -64,17 +64,7 @@ export default function JudgeDashboard() {
 
   const supabase = createClient()
 
-  useEffect(() => {
-    loadJudgingData()
-  }, [])
-
-  useEffect(() => {
-    if (selectedCategory && currentUser) {
-      loadNomineesAndScores()
-    }
-  }, [selectedCategory, currentUser])
-
-  const loadJudgingData = async () => {
+  const loadJudgingData = useCallback(async () => {
     try {
       // Get current user
       const { data: { user } } = await supabase.auth.getUser()
@@ -102,9 +92,9 @@ export default function JudgeDashboard() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [supabase])
 
-  const loadNomineesAndScores = async () => {
+  const loadNomineesAndScores = useCallback(async () => {
     try {
       // Load approved nominees for the selected category
       const { data: nomineesData } = await supabase
@@ -151,7 +141,17 @@ export default function JudgeDashboard() {
       console.error('Error loading nominees and scores:', error)
       setMessage('Error loading nominees and scores.')
     }
-  }
+  }, [selectedCategory, currentUser, supabase])
+
+  useEffect(() => {
+    loadJudgingData()
+  }, [loadJudgingData])
+
+  useEffect(() => {
+    if (selectedCategory && currentUser) {
+      loadNomineesAndScores()
+    }
+  }, [selectedCategory, currentUser, loadNomineesAndScores])
 
   const updateScore = (nomineeId: string, criterion: string, value: number) => {
     setJudgeScores(prev => {

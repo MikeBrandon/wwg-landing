@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { createClient } from '@/utils/supabase/client'
 import Link from 'next/link'
 import AwardsConfig from './AwardsConfig'
@@ -49,9 +49,9 @@ interface User {
 
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState<'nominations' | 'nominees' | 'users' | 'awards'>('nominations')
-  const [nominations, setNominations] = useState<Nomination[]>([])
+  const [, setNominations] = useState<Nomination[]>([])
   const [groupedNominations, setGroupedNominations] = useState<{[key: string]: GroupedNomination[]}>({})
-  const [nominees, setNominees] = useState<Nominee[]>([])
+  const [, setNominees] = useState<Nominee[]>([])
   const [groupedNominees, setGroupedNominees] = useState<{[key: string]: Nominee[]}>({})
   const [users, setUsers] = useState<User[]>([])
   const [loading, setLoading] = useState(true)
@@ -60,11 +60,7 @@ export default function AdminDashboard() {
 
   const supabase = createClient()
 
-  useEffect(() => {
-    loadData()
-  }, [activeTab])
-
-  const loadData = async () => {
+  const loadData = useCallback(async () => {
     setLoading(true)
     try {
       if (activeTab === 'nominations') {
@@ -151,7 +147,11 @@ export default function AdminDashboard() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [activeTab, supabase])
+
+  useEffect(() => {
+    loadData()
+  }, [loadData])
 
   const approveNomination = async (nomination: GroupedNomination) => {
     try {

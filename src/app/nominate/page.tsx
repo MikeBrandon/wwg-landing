@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { createClient } from '@/utils/supabase/client'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
@@ -59,11 +59,7 @@ export default function NominatePage() {
   const router = useRouter()
   const supabase = createClient()
 
-  useEffect(() => {
-    loadInitialData()
-  }, [])
-
-  const loadInitialData = async () => {
+  const loadInitialData = useCallback(async () => {
     try {
       // Check if user is authenticated
       const { data: { user } } = await supabase.auth.getUser()
@@ -93,7 +89,11 @@ export default function NominatePage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [router, supabase])
+
+  useEffect(() => {
+    loadInitialData()
+  }, [loadInitialData])
 
   const handleCreatorNameChange = (value: string) => {
     setFormData({ ...formData, creatorName: value, creatorId: '' })

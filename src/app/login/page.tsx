@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { createClient } from '@/utils/supabase/client'
-import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { FaArrowLeft } from 'react-icons/fa'
@@ -29,7 +28,6 @@ const itemVariants = {
 export default function LoginPage() {
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState('')
-  const router = useRouter()
   const supabase = createClient()
 
   const handleGoogleSignIn = async () => {
@@ -48,6 +46,7 @@ export default function LoginPage() {
         setMessage(error.message)
       }
     } catch (error) {
+      console.error(error)
       setMessage('An unexpected error occurred')
     } finally {
       setLoading(false)

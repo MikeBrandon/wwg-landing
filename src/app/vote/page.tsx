@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { createClient } from '@/utils/supabase/client'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
@@ -57,17 +57,7 @@ export default function VotePage() {
   const router = useRouter()
   const supabase = createClient()
 
-  useEffect(() => {
-    loadVotingData()
-  }, [])
-
-  useEffect(() => {
-    if (selectedCategory) {
-      loadNomineesForCategory(selectedCategory)
-    }
-  }, [selectedCategory])
-
-  const loadVotingData = async () => {
+  const loadVotingData = useCallback(async () => {
     try {
       // Check if user is authenticated
       const { data: { user } } = await supabase.auth.getUser()
@@ -106,9 +96,13 @@ export default function VotePage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [router, supabase])
 
-  const loadNomineesForCategory = async (categoryId: string) => {
+  useEffect(() => {
+    loadVotingData()
+  }, [loadVotingData])
+
+  const loadNomineesForCategory = useCallback(async (categoryId: string) => {
     try {
       // Load approved nominees for the selected category with vote counts
       const { data: nomineesData } = await supabase
@@ -138,13 +132,19 @@ export default function VotePage() {
           })
         )
 
-        setNominees(nomineesWithCounts)
+        setNominees(nomineesWithCounts as unknown as Nominee[])
       }
     } catch (error) {
       console.error('Error loading nominees:', error)
       setMessage('Error loading nominees for this category.')
     }
-  }
+  }, [supabase, userVotes])
+
+  useEffect(() => {
+    if (selectedCategory) {
+      loadNomineesForCategory(selectedCategory)
+    }
+  }, [selectedCategory, loadNomineesForCategory])
 
   const handleVote = async (nomineeId: string) => {
     setVoting(true)

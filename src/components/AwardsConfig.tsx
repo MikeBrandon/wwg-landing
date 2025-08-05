@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { createClient } from '@/utils/supabase/client'
 
 interface Award {
@@ -36,11 +36,7 @@ export default function AwardsConfig() {
 
   const supabase = createClient()
 
-  useEffect(() => {
-    loadData()
-  }, [])
-
-  const loadData = async () => {
+  const loadData = useCallback(async () => {
     try {
       const [awardsResult, categoriesResult] = await Promise.all([
         supabase.from('awards').select('*').order('created_at', { ascending: false }),
@@ -55,7 +51,11 @@ export default function AwardsConfig() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [supabase])
+
+  useEffect(() => {
+    loadData()
+  }, [loadData])
 
   const saveAward = async (award: Partial<Award>) => {
     setSaving(true)
@@ -453,7 +453,7 @@ export default function AwardsConfig() {
           <div className="flex justify-between items-center">
             <h3 className="text-lg font-medium">Awards Management</h3>
             <button
-              onClick={() => setEditingAward({})}
+              onClick={() => setEditingAward({} as Award)}
               className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md"
             >
               Create New Award
@@ -508,7 +508,7 @@ export default function AwardsConfig() {
           <div className="flex justify-between items-center">
             <h3 className="text-lg font-medium">Categories Management</h3>
             <button
-              onClick={() => setEditingCategory({})}
+              onClick={() => setEditingCategory({} as Category)}
               className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md"
             >
               Create New Category

@@ -1,11 +1,12 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { createClient } from '@/utils/supabase/client'
 import { calculateFinalScores, saveFinalScores, getResultsWithDetails, CategoryResults } from '@/utils/scoring'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { FaArrowLeft, FaTrophy } from 'react-icons/fa'
+import { User } from '@supabase/supabase-js'
 
 interface ResultsData {
   id: string
@@ -41,21 +42,16 @@ const itemVariants = {
 
 export default function ResultsPage() {
   const [results, setResults] = useState<ResultsData[]>([])
-  const [categoryResults, setCategoryResults] = useState<CategoryResults[]>([])
+  const [, setCategoryResults] = useState<CategoryResults[]>([])
   const [loading, setLoading] = useState(true)
   const [calculating, setCalculating] = useState(false)
   const [message, setMessage] = useState('')
-  const [user, setUser] = useState<any>(null)
+  const [, setUser] = useState<User | null>(null)
   const [isAdmin, setIsAdmin] = useState(false)
 
   const supabase = createClient()
 
-  useEffect(() => {
-    loadResults()
-    checkUserRole()
-  }, [])
-
-  const checkUserRole = async () => {
+  const checkUserRole = useCallback(async () => {
     try {
       const { data: { user } } = await supabase.auth.getUser()
       if (user) {
@@ -71,9 +67,9 @@ export default function ResultsPage() {
     } catch (error) {
       console.error('Error checking user role:', error)
     }
-  }
+  }, [supabase])
 
-  const loadResults = async () => {
+  const loadResults = useCallback(async () => {
     try {
       const resultsData = await getResultsWithDetails()
       setResults(resultsData)
@@ -83,7 +79,12 @@ export default function ResultsPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [])
+
+  useEffect(() => {
+    loadResults()
+    checkUserRole()
+  }, [loadResults, checkUserRole])
 
   const handleCalculateScores = async () => {
     setCalculating(true)
@@ -110,7 +111,7 @@ export default function ResultsPage() {
   }
 
   const groupResultsByCategory = (results: ResultsData[]) => {
-    const grouped: { [key: string]: { category: any; results: ResultsData[] } } = {}
+    const grouped: { [key: string]: { category: { id: string; name: string }; results: ResultsData[] } } = {}
     
     results.forEach(result => {
       const categoryId = result.nominees.categories.id
@@ -261,7 +262,7 @@ export default function ResultsPage() {
                 <p className="text-text-secondary text-lg mb-2">No results available yet.</p>
                 {isAdmin && (
                   <p className="text-sm text-text-secondary/70">
-                    Click "Recalculate Scores" to generate results from current votes and judge scores.
+                    Click &quot;Recalculate Scores&quot; to generate results from current votes and judge scores.
                   </p>
                 )}
               </motion.div>

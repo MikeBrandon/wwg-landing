@@ -6,6 +6,8 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { FaArrowLeft, FaTrophy, FaVoteYea, FaCog, FaGavel, FaChartBar } from 'react-icons/fa'
+import { User } from '@supabase/supabase-js'
+import { User as DatabaseUser } from '@/types/database'
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -27,9 +29,13 @@ const itemVariants = {
 }
 
 interface DashboardClientProps {
-  user: any
-  profile: any
-  nominations: any[]
+  user: User | null
+  profile: DatabaseUser | null
+  nominations: {
+    id: string
+    categories: { id: string; name: string }
+    creators: { id: string; name: string; primary_platform: string; channel_url: string }
+  }[]
 }
 
 export default function DashboardClient({ user, profile, nominations }: DashboardClientProps) {
@@ -126,7 +132,7 @@ export default function DashboardClient({ user, profile, nominations }: Dashboar
                 </motion.div>
               </Link>
               <h1 className="text-3xl md:text-5xl font-bold mb-2">
-                Welcome, <span className="text-gradient">{profile?.full_name || user.email?.split('@')[0]}!</span>
+                Welcome, <span className="text-gradient">{profile?.full_name || user?.email?.split('@')[0]}!</span>
               </h1>
               <p className="text-text-secondary">
                 Your WWG Awards dashboard - nominate, vote, and celebrate great creators
@@ -223,7 +229,7 @@ export default function DashboardClient({ user, profile, nominations }: Dashboar
                 <h3 className="text-xl font-bold mb-4 text-text-primary">My Nominations</h3>
                 {nominations && nominations.length > 0 ? (
                   <div className="space-y-3">
-                    {nominations.map((nomination: any) => (
+                    {nominations.map((nomination) => (
                       <div key={nomination.id} className="border-l-4 border-secondary pl-3 py-2">
                         <p className="font-medium text-text-primary">
                           {nomination.creators?.name}
