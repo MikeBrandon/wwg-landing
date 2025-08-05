@@ -231,6 +231,68 @@ export default function Home() {
           >
             <AwardsCarousel />
           </motion.div>
+
+          {/* Awards CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mt-16 md:mt-20"
+          >
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Link
+                  href="/nominate"
+                  className="group relative inline-flex items-center bg-gradient-to-r from-secondary to-secondary/80 text-white px-8 py-4 rounded-2xl text-lg font-semibold transition-all duration-300 btn-glow shadow-glow"
+                >
+                  <span className="mr-2">🏆</span>
+                  Nominate a Creator
+                  <div className="absolute inset-0 bg-gradient-to-r from-secondary to-background rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
+                </Link>
+              </motion.div>
+
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Link
+                  href="/vote"
+                  className="group relative inline-flex items-center bg-gradient-to-r from-primary to-primary/80 text-white px-8 py-4 rounded-2xl text-lg font-semibold transition-all duration-300 btn-glow shadow-glow"
+                >
+                  <span className="mr-2">🗳️</span>
+                  Vote for Nominees
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
+                </Link>
+              </motion.div>
+
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Link
+                  href="/results"
+                  className="group relative inline-flex items-center bg-gradient-to-r from-background to-background/80 text-text-primary border-2 border-primary px-8 py-4 rounded-2xl text-lg font-semibold transition-all duration-300 hover:bg-primary hover:text-white"
+                >
+                  <span className="mr-2">📊</span>
+                  View Results
+                </Link>
+              </motion.div>
+            </div>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1 }}
+              viewport={{ once: true }}
+              className="text-text-secondary mt-6 max-w-2xl mx-auto"
+            >
+              Join the celebration! Nominate your favorite creators, vote for the best, and see who takes home the awards.
+            </motion.p>
+          </motion.div>
         </div>
       </section>
 
