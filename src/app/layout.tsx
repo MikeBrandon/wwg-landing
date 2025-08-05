@@ -4,7 +4,6 @@ import "./globals.css";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 import ClientWrapper from "@/components/ClientWrapper";
-import { headers } from 'next/headers';
 
 const font = Montserrat({
   subsets: ["latin"],
@@ -21,17 +20,12 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const headersList = await headers();
-  const pathname = headersList.get('x-pathname') || '';
-  
-  const showNavbar = ['/', '/awards', '/blog'].includes(pathname);
-
   return (
     <html lang="en">
       <body
         className={`${font.variable} font-sans antialiased`}
       >
-        {showNavbar && <NavBar />}
+        <NavBar />
         <ClientWrapper>
           {children}
         </ClientWrapper>
