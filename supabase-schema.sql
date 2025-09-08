@@ -130,6 +130,14 @@ ALTER TABLE public.final_scores ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Users can view their own profile" ON public.users
   FOR SELECT USING (auth.uid() = id);
 
+CREATE POLICY "Admins can view all users" ON public.users
+  FOR SELECT USING (
+    EXISTS (
+      SELECT 1 FROM public.users 
+      WHERE id = auth.uid() AND role = 'admin'
+    )
+  );
+
 CREATE POLICY "Users can update their own profile" ON public.users
   FOR UPDATE USING (auth.uid() = id);
 
