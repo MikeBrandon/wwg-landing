@@ -37,7 +37,7 @@ export default function Home() {
       className="min-h-screen text-text-primary"
     >
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center text-center px-4 overflow-hidden">
+      <section className="relative min-h-screen flex items-center justify-center text-center px-4 overflow-hidden" aria-label="Hero section with community introduction">
         {/* Background Elements */}
         <div className="absolute inset-0 z-0">
           {/* Subtle Background Image */}
@@ -177,7 +177,7 @@ export default function Home() {
       </section>
 
       {/* Awards Section */}
-      <section className="py-20 md:py-32 px-4 relative bg-background">
+      <section className="py-20 md:py-32 px-4 relative bg-background" aria-label="WWG Creator Awards showcase">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -297,7 +297,7 @@ export default function Home() {
       </section>
 
       {/* Blog Section */}
-      <section className="py-20 md:py-32 px-4 relative bg-surface">
+      <section className="py-20 md:py-32 px-4 relative bg-surface" aria-label="Latest gaming news and updates">
         {/* <div className="absolute inset-0 bg-gradient-to-b from-background via-surface to-surface-2"></div> */}
         <div className="relative max-w-7xl mx-auto">
           <motion.div

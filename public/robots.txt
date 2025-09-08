@@ -1,0 +1,26 @@
+# Robots.txt for Watu Wa Gaming
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://watuwagaming.com/sitemap.xml
+
+# Disallow admin and auth routes
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /dashboard/
+Disallow: /judge/
+Disallow: /login/
+Disallow: /nominate/
+Disallow: /vote/
+
+# Allow important pages
+Allow: /
+Allow: /awards/
+Allow: /blog/
+Allow: /results/
+Allow: /privacy/
+Allow: /terms/
+
+# Crawl delay (optional, helps with server load)
+Crawl-delay: 1
