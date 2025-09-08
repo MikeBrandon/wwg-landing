@@ -4,6 +4,7 @@ import "./globals.css";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 import ClientWrapper from "@/components/ClientWrapper";
+import { usePathname } from "next/navigation";
 
 const font = Montserrat({
   subsets: ["latin"],
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
   description: "Join Kenya's premier gaming community. Connect with fellow gamers, participate in tournaments, and celebrate gaming culture in East Africa.",
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -29,8 +30,17 @@ export default async function RootLayout({
         <ClientWrapper>
           {children}
         </ClientWrapper>
-        <Footer />
+        <ConditionalFooter />
       </body>
     </html>
   );
+}
+
+function ConditionalFooter() {
+  'use client';
+  
+  const pathname = usePathname();
+  const showFooter = pathname !== "/login";
+  
+  return showFooter ? <Footer /> : null;
 }
