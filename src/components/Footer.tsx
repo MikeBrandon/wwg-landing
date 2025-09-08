@@ -99,6 +99,21 @@ const Footer = () => {
               viewport={{ once: true }}
               className="text-center md:text-right"
             >
+              <div className="flex flex-col md:flex-row items-center gap-4 mb-2">
+                <a 
+                  href="/privacy" 
+                  className="text-text-secondary hover:text-secondary transition-colors text-sm"
+                >
+                  Privacy Policy
+                </a>
+                <span className="hidden md:inline text-text-muted">•</span>
+                <a 
+                  href="/terms" 
+                  className="text-text-secondary hover:text-secondary transition-colors text-sm"
+                >
+                  Terms of Service
+                </a>
+              </div>
               <p className="text-text-muted text-xs md:text-sm">
                 Made with ❤️ for the gaming community
               </p>

@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
 import NavBar from "@/components/NavBar";
-import Footer from "@/components/Footer";
+import ConditionalFooter from "@/components/ConditionalFooter";
 import ClientWrapper from "@/components/ClientWrapper";
-import { usePathname } from "next/navigation";
 
 const font = Montserrat({
   subsets: ["latin"],
@@ -36,11 +35,3 @@ export default function RootLayout({
   );
 }
 
-function ConditionalFooter() {
-  'use client';
-  
-  const pathname = usePathname();
-  const showFooter = pathname !== "/login";
-  
-  return showFooter ? <Footer /> : null;
-}
