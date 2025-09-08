@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { createClient } from '@/utils/supabase/client'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { FaArrowLeft } from 'react-icons/fa'
+import { FaArrowLeft, FaDiscord } from 'react-icons/fa'
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -37,6 +37,29 @@ export default function LoginPage() {
     try {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback`,
+        },
+      })
+      
+      if (error) {
+        setMessage(error.message)
+      }
+    } catch (error) {
+      console.error(error)
+      setMessage('An unexpected error occurred')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleDiscordSignIn = async () => {
+    setLoading(true)
+    setMessage('')
+    
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'discord',
         options: {
           redirectTo: `${window.location.origin}/auth/callback`,
         },
@@ -150,6 +173,30 @@ export default function LoginPage() {
                   </span>
                 )}
                 <div className="absolute inset-0 bg-gradient-to-r from-secondary to-background rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
+              </motion.button>
+
+              <motion.button
+                onClick={handleDiscordSignIn}
+                disabled={loading}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="group relative w-full flex justify-center items-center bg-gradient-to-r from-[#5865F2] to-[#5865F2]/80 text-white px-6 py-4 rounded-xl font-semibold transition-all duration-300 btn-glow shadow-glow disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {loading ? (
+                  <span className="flex items-center">
+                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Signing in...
+                  </span>
+                ) : (
+                  <span className="flex items-center">
+                    <FaDiscord className="w-5 h-5 mr-3" />
+                    Continue with Discord
+                  </span>
+                )}
+                <div className="absolute inset-0 bg-gradient-to-r from-[#5865F2] to-background rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
               </motion.button>
             </motion.div>
           </motion.div>
