@@ -197,24 +197,24 @@ export default function AwardsConfig() {
     }
 
     return (
-      <form onSubmit={handleSubmit} className="space-y-4 bg-gray-50 p-4 rounded-lg">
+      <form onSubmit={handleSubmit} className="space-y-4 bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700">Award Name</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Award Name</label>
             <input
               type="text"
               required
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2"
+              className="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Active</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Active</label>
             <select
               value={formData.is_active.toString()}
               onChange={(e) => setFormData({ ...formData, is_active: e.target.value === 'true' })}
-              className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2"
+              className="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
             >
               <option value="true">Active</option>
               <option value="false">Inactive</option>
@@ -223,74 +223,74 @@ export default function AwardsConfig() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">Description</label>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Description</label>
           <textarea
             value={formData.description}
             onChange={(e) => setFormData({ ...formData, description: e.target.value })}
             rows={3}
-            className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2"
+            className="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
           />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700">Nomination Start</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Nomination Start</label>
             <input
               type="datetime-local"
               value={formData.nomination_start_date}
               onChange={(e) => setFormData({ ...formData, nomination_start_date: e.target.value })}
-              className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2"
+              className="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Nomination End</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Nomination End</label>
             <input
               type="datetime-local"
               value={formData.nomination_end_date}
               onChange={(e) => setFormData({ ...formData, nomination_end_date: e.target.value })}
-              className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2"
+              className="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
             />
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700">Voting Start</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Voting Start</label>
             <input
               type="datetime-local"
               value={formData.voting_start_date}
               onChange={(e) => setFormData({ ...formData, voting_start_date: e.target.value })}
-              className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2"
+              className="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Voting End</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Voting End</label>
             <input
               type="datetime-local"
               value={formData.voting_end_date}
               onChange={(e) => setFormData({ ...formData, voting_end_date: e.target.value })}
-              className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2"
+              className="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
             />
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700">Judging Start</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Judging Start</label>
             <input
               type="datetime-local"
               value={formData.judging_start_date}
               onChange={(e) => setFormData({ ...formData, judging_start_date: e.target.value })}
-              className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2"
+              className="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Judging End</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Judging End</label>
             <input
               type="datetime-local"
               value={formData.judging_end_date}
               onChange={(e) => setFormData({ ...formData, judging_end_date: e.target.value })}
-              className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2"
+              className="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
             />
           </div>
         </div>
@@ -299,7 +299,7 @@ export default function AwardsConfig() {
           <button
             type="button"
             onClick={onCancel}
-            className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300"
+            className="px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-md hover:bg-gray-300 dark:hover:bg-gray-500"
           >
             Cancel
           </button>
@@ -333,15 +333,15 @@ export default function AwardsConfig() {
     }
 
     return (
-      <form onSubmit={handleSubmit} className="space-y-4 bg-gray-50 p-4 rounded-lg">
+      <form onSubmit={handleSubmit} className="space-y-4 bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700">Award</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Award</label>
             <select
               required
               value={formData.award_id}
               onChange={(e) => setFormData({ ...formData, award_id: e.target.value })}
-              className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2"
+              className="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
             >
               <option value="">Select an award</option>
               {awards.map(award => (
@@ -350,11 +350,11 @@ export default function AwardsConfig() {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Active</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Active</label>
             <select
               value={formData.is_active.toString()}
               onChange={(e) => setFormData({ ...formData, is_active: e.target.value === 'true' })}
-              className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2"
+              className="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
             >
               <option value="true">Active</option>
               <option value="false">Inactive</option>
@@ -363,23 +363,23 @@ export default function AwardsConfig() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">Category Name</label>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Category Name</label>
           <input
             type="text"
             required
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-            className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2"
+            className="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">Description</label>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Description</label>
           <textarea
             value={formData.description}
             onChange={(e) => setFormData({ ...formData, description: e.target.value })}
             rows={3}
-            className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2"
+            className="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
           />
         </div>
 
@@ -387,7 +387,7 @@ export default function AwardsConfig() {
           <button
             type="button"
             onClick={onCancel}
-            className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300"
+            className="px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-md hover:bg-gray-300 dark:hover:bg-gray-500"
           >
             Cancel
           </button>
@@ -415,21 +415,23 @@ export default function AwardsConfig() {
     <div className="space-y-6">
       {message && (
         <div className={`p-4 rounded-md ${
-          message.includes('successfully') ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'
+          message.includes('successfully') 
+            ? 'bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400' 
+            : 'bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400'
         }`}>
           {message}
         </div>
       )}
 
       {/* Tabs */}
-      <div className="border-b border-gray-200">
+      <div className="border-b border-gray-200 dark:border-gray-700">
         <nav className="-mb-px flex space-x-8">
           <button
             onClick={() => setActiveTab('awards')}
             className={`py-2 px-1 border-b-2 font-medium text-sm ${
               activeTab === 'awards'
-                ? 'border-indigo-500 text-indigo-600'
-                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400'
+                : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600'
             }`}
           >
             Awards
@@ -438,8 +440,8 @@ export default function AwardsConfig() {
             onClick={() => setActiveTab('categories')}
             className={`py-2 px-1 border-b-2 font-medium text-sm ${
               activeTab === 'categories'
-                ? 'border-indigo-500 text-indigo-600'
-                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400'
+                : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600'
             }`}
           >
             Categories
@@ -451,7 +453,7 @@ export default function AwardsConfig() {
       {activeTab === 'awards' && (
         <div className="space-y-6">
           <div className="flex justify-between items-center">
-            <h3 className="text-lg font-medium">Awards Management</h3>
+            <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">Awards Management</h3>
             <button
               onClick={() => setEditingAward({} as Award)}
               className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md"
@@ -470,13 +472,15 @@ export default function AwardsConfig() {
 
           <div className="space-y-4">
             {awards.map(award => (
-              <div key={award.id} className="bg-white border rounded-lg p-4">
+              <div key={award.id} className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
                 <div className="flex justify-between items-start">
                   <div>
-                    <h4 className="text-lg font-medium">{award.name}</h4>
-                    <p className="text-gray-600">{award.description}</p>
+                    <h4 className="text-lg font-medium text-gray-900 dark:text-gray-100">{award.name}</h4>
+                    <p className="text-gray-600 dark:text-gray-400">{award.description}</p>
                     <span className={`inline-block px-2 py-1 text-xs rounded-full mt-2 ${
-                      award.is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                      award.is_active 
+                        ? 'bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-400' 
+                        : 'bg-red-100 dark:bg-red-900/20 text-red-800 dark:text-red-400'
                     }`}>
                       {award.is_active ? 'Active' : 'Inactive'}
                     </span>
@@ -484,13 +488,13 @@ export default function AwardsConfig() {
                   <div className="flex space-x-2">
                     <button
                       onClick={() => setEditingAward(award)}
-                      className="text-indigo-600 hover:text-indigo-700"
+                      className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300"
                     >
                       Edit
                     </button>
                     <button
                       onClick={() => deleteAward(award.id)}
-                      className="text-red-600 hover:text-red-700"
+                      className="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300"
                     >
                       Delete
                     </button>
@@ -506,7 +510,7 @@ export default function AwardsConfig() {
       {activeTab === 'categories' && (
         <div className="space-y-6">
           <div className="flex justify-between items-center">
-            <h3 className="text-lg font-medium">Categories Management</h3>
+            <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">Categories Management</h3>
             <button
               onClick={() => setEditingCategory({} as Category)}
               className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md"
@@ -527,14 +531,16 @@ export default function AwardsConfig() {
             {categories.map(category => {
               const award = awards.find(a => a.id === category.award_id)
               return (
-                <div key={category.id} className="bg-white border rounded-lg p-4">
+                <div key={category.id} className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
                   <div className="flex justify-between items-start">
                     <div>
-                      <h4 className="text-lg font-medium">{category.name}</h4>
-                      <p className="text-gray-600">{category.description}</p>
-                      <p className="text-sm text-gray-500">Award: {award?.name}</p>
+                      <h4 className="text-lg font-medium text-gray-900 dark:text-gray-100">{category.name}</h4>
+                      <p className="text-gray-600 dark:text-gray-400">{category.description}</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Award: {award?.name}</p>
                       <span className={`inline-block px-2 py-1 text-xs rounded-full mt-2 ${
-                        category.is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                        category.is_active 
+                          ? 'bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-400' 
+                          : 'bg-red-100 dark:bg-red-900/20 text-red-800 dark:text-red-400'
                       }`}>
                         {category.is_active ? 'Active' : 'Inactive'}
                       </span>
@@ -542,13 +548,13 @@ export default function AwardsConfig() {
                     <div className="flex space-x-2">
                       <button
                         onClick={() => setEditingCategory(category)}
-                        className="text-indigo-600 hover:text-indigo-700"
+                        className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300"
                       >
                         Edit
                       </button>
                       <button
                         onClick={() => deleteCategory(category.id)}
-                        className="text-red-600 hover:text-red-700"
+                        className="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300"
                       >
                         Delete
                       </button>
