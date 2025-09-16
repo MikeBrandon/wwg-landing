@@ -275,14 +275,14 @@ export default function AdminDashboard() {
 
   return (
     <div className="flex-1 flex flex-col w-full sm:max-w-md md:max-w-none justify-center gap-2">
-      <nav className="bg-background shadow">
+      <nav className="bg-gray-900 shadow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex items-center">
-              <h1 className="text-xl font-semibold text-secondary">Admin Dashboard</h1>
+              <h1 className="text-xl font-semibold text-white">Admin Dashboard</h1>
             </div>
             <div className="flex items-center">
-              <Link href="/dashboard" className="text-secondary hover:text-secondary/80">
+              <Link href="/dashboard" className="text-gray-300 hover:text-white">
                 ← Back to Dashboard
               </Link>
             </div>
@@ -290,15 +290,15 @@ export default function AdminDashboard() {
         </div>
       </nav>
 
-      <div className="py-6 sm:px-6 lg:px-8">
+      <div className="py-6 sm:px-6 lg:px-8 bg-gray-900 min-h-screen">
         {message && (
-          <div className="mb-4 p-4 bg-blue-50 text-blue-700 rounded-md">
+          <div className="mb-4 p-4 bg-blue-900 text-blue-200 rounded-md border border-blue-800">
             {message}
           </div>
         )}
 
         {/* Tabs */}
-        <div className="border-b border-gray-200 mb-6">
+        <div className="border-b border-gray-700 mb-6">
           <nav className="-mb-px flex space-x-8">
             {[
               { key: 'nominations', label: 'Nominations' },
@@ -311,8 +311,8 @@ export default function AdminDashboard() {
                 onClick={() => setActiveTab(tab.key as 'nominations' | 'nominees' | 'users' | 'awards')}
                 className={`py-2 px-1 border-b-2 font-medium text-sm ${
                   activeTab === tab.key
-                    ? 'border-foreground text-foreground'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                    ? 'border-white text-white'
+                    : 'border-transparent text-gray-400 hover:text-gray-200 hover:border-gray-500'
                 }`}
               >
                 {tab.label}
@@ -323,25 +323,25 @@ export default function AdminDashboard() {
 
         {loading ? (
           <div className="text-center py-12">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-foreground mx-auto"></div>
-            <p className="mt-4 text-gray-600">Loading...</p>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto"></div>
+            <p className="mt-4 text-gray-400">Loading...</p>
           </div>
         ) : (
           <div>
             {/* Nominations Tab */}
             {activeTab === 'nominations' && (
               <div className="space-y-6">
-                <h2 className="text-lg font-medium">Pending Nominations</h2>
+                <h2 className="text-lg font-medium text-white">Pending Nominations</h2>
                 {Object.keys(groupedNominations).length === 0 ? (
-                  <p className="text-gray-500">No nominations found.</p>
+                  <p className="text-gray-400">No nominations found.</p>
                 ) : (
                   <div className="space-y-8">
                     {Object.entries(groupedNominations).map(([categoryId, nominations]) => (
-                      <div key={categoryId} className="bg-white shadow overflow-hidden sm:rounded-md">
-                        <div className="px-6 py-4 bg-gray-50 border-b border-gray-200">
-                          <h3 className="text-lg font-medium text-gray-900">{nominations[0].category.name}</h3>
+                      <div key={categoryId} className="bg-gray-800 shadow overflow-hidden sm:rounded-md border border-gray-700">
+                        <div className="px-6 py-4 bg-gray-700 border-b border-gray-600">
+                          <h3 className="text-lg font-medium text-white">{nominations[0].category.name}</h3>
                         </div>
-                        <ul className="divide-y divide-gray-200">
+                        <ul className="divide-y divide-gray-700">
                           {nominations.map((nomination) => (
                             <li 
                               key={`${nomination.creator.name}-${categoryId}`} 
@@ -353,21 +353,21 @@ export default function AdminDashboard() {
                                 <div className="flex-1">
                                   <div className="flex items-center">
                                     <div className="flex-1">
-                                      <h3 className="text-lg font-medium text-gray-900">
+                                      <h3 className="text-lg font-medium text-white">
                                         {nomination.creator.name}
                                       </h3>
-                                      <p className="text-sm text-gray-500">
+                                      <p className="text-sm text-gray-400">
                                         {nomination.creator.primary_platform} • {nomination.votes} vote{nomination.votes !== 1 ? 's' : ''}
                                       </p>
                                       {hoveredNominee === `${nomination.creator.name}-${categoryId}` && (
-                                        <div className="mt-2 bg-gray-50 p-3 rounded-md">
-                                          <h4 className="text-sm font-medium text-gray-700 mb-2">Nominations:</h4>
+                                        <div className="mt-2 bg-gray-700 p-3 rounded-md">
+                                          <h4 className="text-sm font-medium text-gray-200 mb-2">Nominations:</h4>
                                           {nomination.nominations.map((nom, idx) => (
                                             <div key={idx} className="mb-2 last:mb-0">
-                                              <p className="text-sm text-gray-600">
+                                              <p className="text-sm text-gray-300">
                                                 <span className="font-medium">{nom.user?.full_name || nom.user?.email || 'Unknown'}</span>
                                               </p>
-                                              <p className="text-sm text-gray-500">{nom.reason}</p>
+                                              <p className="text-sm text-gray-400">{nom.reason}</p>
                                             </div>
                                           ))}
                                         </div>
@@ -376,7 +376,7 @@ export default function AdminDashboard() {
                                         href={nomination.creator.channel_url}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="text-foreground hover:text-foreground/80 text-sm"
+                                        className="text-blue-400 hover:text-blue-300 text-sm"
                                       >
                                         View Channel →
                                       </a>
@@ -406,40 +406,40 @@ export default function AdminDashboard() {
             {activeTab === 'nominees' && (
               <div className="space-y-6">
                 <div className="flex justify-between items-center">
-                  <h2 className="text-lg font-medium">Manage Nominees</h2>
+                  <h2 className="text-lg font-medium text-white">Manage Nominees</h2>
                   <button
                     onClick={() => {
                       const modal = document.getElementById('addNomineeModal') as HTMLDialogElement
                       modal?.showModal()
                     }}
-                    className="bg-foreground hover:bg-foreground/80 text-background px-4 py-2 rounded-md text-sm font-medium"
+                    className="bg-white hover:bg-gray-200 text-gray-900 px-4 py-2 rounded-md text-sm font-medium"
                   >
                     Add Manual Nominee
                   </button>
                 </div>
 
                 {Object.keys(groupedNominees).length === 0 ? (
-                  <p className="text-gray-500">No nominees found.</p>
+                  <p className="text-gray-400">No nominees found.</p>
                 ) : (
                   <div className="space-y-8">
                     {Object.entries(groupedNominees).map(([categoryId, nominees]) => (
-                      <div key={categoryId} className="bg-white shadow overflow-hidden sm:rounded-md">
-                        <div className="px-6 py-4 bg-gray-50 border-b border-gray-200">
-                          <h3 className="text-lg font-medium text-gray-900">{nominees[0].categories.name}</h3>
+                      <div key={categoryId} className="bg-gray-800 shadow overflow-hidden sm:rounded-md border border-gray-700">
+                        <div className="px-6 py-4 bg-gray-700 border-b border-gray-600">
+                          <h3 className="text-lg font-medium text-white">{nominees[0].categories.name}</h3>
                         </div>
-                        <ul className="divide-y divide-gray-200">
+                        <ul className="divide-y divide-gray-700">
                           {nominees.map((nominee) => (
                             <li key={nominee.id} className="px-6 py-4">
                               <div className="flex items-center justify-between">
                                 <div className="flex-1">
-                                  <h3 className="text-lg font-medium text-gray-900">
+                                  <h3 className="text-lg font-medium text-white">
                                     {nominee.creators.name}
                                   </h3>
-                                  <p className="text-sm text-gray-500">
+                                  <p className="text-sm text-gray-400">
                                     {nominee.creators.primary_platform}
                                   </p>
                                   {nominee.admin_notes && (
-                                    <p className="text-sm text-gray-600 mt-1">
+                                    <p className="text-sm text-gray-300 mt-1">
                                       <strong>Notes:</strong> {nominee.admin_notes}
                                     </p>
                                   )}
@@ -477,20 +477,20 @@ export default function AdminDashboard() {
             {/* Users Tab */}
             {activeTab === 'users' && (
               <div className="space-y-6">
-                <h2 className="text-lg font-medium">Manage Users</h2>
+                <h2 className="text-lg font-medium text-white">Manage Users</h2>
                 {users.length === 0 ? (
-                  <p className="text-gray-500">No users found.</p>
+                  <p className="text-gray-400">No users found.</p>
                 ) : (
-                  <div className="bg-white shadow overflow-hidden sm:rounded-md">
-                    <ul className="divide-y divide-gray-200">
+                  <div className="bg-gray-800 shadow overflow-hidden sm:rounded-md border border-gray-700">
+                    <ul className="divide-y divide-gray-700">
                       {users.map((user) => (
                         <li key={user.id} className="px-6 py-4">
                           <div className="flex items-center justify-between">
                             <div className="flex-1">
-                              <h3 className="text-lg font-medium text-gray-900">
+                              <h3 className="text-lg font-medium text-white">
                                 {user.full_name || 'No name set'}
                               </h3>
-                              <p className="text-sm text-gray-500">{user.email}</p>
+                              <p className="text-sm text-gray-400">{user.email}</p>
                               <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full mt-2 ${
                                 user.role === 'admin'
                                   ? 'bg-red-100 text-red-800'
@@ -505,7 +505,7 @@ export default function AdminDashboard() {
                               <select
                                 value={user.role}
                                 onChange={(e) => updateUserRole(user.id, e.target.value)}
-                                className="bg-gray-800 border border-gray-600 rounded-md px-3 py-2 text-sm text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                className="bg-gray-700 border border-gray-600 rounded-md px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                               >
                                 <option value="user">User</option>
                                 <option value="judge">Judge</option>
@@ -524,7 +524,7 @@ export default function AdminDashboard() {
             {/* Awards Tab */}
             {activeTab === 'awards' && (
               <div className="space-y-6">
-                <h2 className="text-lg font-medium">Awards Management</h2>
+                <h2 className="text-lg font-medium text-white">Awards Management</h2>
                 <AwardsConfig />
               </div>
             )}
@@ -534,21 +534,21 @@ export default function AdminDashboard() {
 
       {/* Add Manual Nominee Modal */}
       <dialog id="addNomineeModal" className="modal">
-        <div className="modal-box">
-          <h3 className="font-bold text-lg">Add Manual Nominee</h3>
+        <div className="modal-box bg-gray-800 border border-gray-700">
+          <h3 className="font-bold text-lg text-white">Add Manual Nominee</h3>
           <form action={addManualNominee} className="space-y-4 mt-4">
             <input
               name="name"
               placeholder="Creator Name"
-              className="w-full border border-gray-300 rounded-md px-3 py-2"
+              className="w-full border border-gray-600 rounded-md px-3 py-2 bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               required
             />
             <select
               name="platform"
-              className="w-full border border-gray-300 rounded-md px-3 py-2"
+              className="w-full border border-gray-600 rounded-md px-3 py-2 bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               required
             >
-              <option value="">Select Platform</option>
+              <option value="" className="text-gray-400">Select Platform</option>
               <option value="youtube">YouTube</option>
               <option value="tiktok">TikTok</option>
               <option value="twitch">Twitch</option>
@@ -558,15 +558,15 @@ export default function AdminDashboard() {
               name="channelUrl"
               placeholder="Channel URL"
               type="url"
-              className="w-full border border-gray-300 rounded-md px-3 py-2"
+              className="w-full border border-gray-600 rounded-md px-3 py-2 bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               required
             />
             <select
               name="categoryId"
-              className="w-full border border-gray-300 rounded-md px-3 py-2"
+              className="w-full border border-gray-600 rounded-md px-3 py-2 bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               required
             >
-              <option value="">Select Category</option>
+              <option value="" className="text-gray-400">Select Category</option>
               {/* This would need to be populated with actual categories */}
             </select>
             <div className="flex justify-end space-x-2">
@@ -576,13 +576,13 @@ export default function AdminDashboard() {
                   const modal = document.getElementById('addNomineeModal') as HTMLDialogElement
                   modal?.close()
                 }}
-                className="px-4 py-2 bg-gray-200 rounded-md"
+                className="px-4 py-2 bg-gray-600 hover:bg-gray-500 text-white rounded-md"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="px-4 py-2 bg-foreground text-background rounded-md"
+                className="px-4 py-2 bg-white hover:bg-gray-200 text-gray-900 rounded-md"
               >
                 Add Nominee
               </button>
